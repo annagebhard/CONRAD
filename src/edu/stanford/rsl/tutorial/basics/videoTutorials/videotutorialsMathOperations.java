@@ -8,17 +8,15 @@ public class videotutorialsMathOperations {
 
 	public static void main(String[] args) {
 		
-		//create a null vector
+		//create a zero vector
 		SimpleVector v1 = new SimpleVector();
 		
-		//initialise the null vector (length 3, entry values zero)
+		//initialise the zero vector (length 3, entry values zero) + print v1
 		v1.init(3);
-		
-		//create a vector from a list of doubles
-		SimpleVector v2 = new SimpleVector(1.1,2.2, 3.3);
-		
-		//print vectors
 		System.out.println("v1 = " + v1);
+		
+		//create a vector from a list of doubles + print v2
+		SimpleVector v2 = new SimpleVector(1.1,2.2, 3.3);
 		System.out.println("v2 = " + v2);
 		
 		//set all entries of v1 to 1 + print v1
@@ -31,8 +29,9 @@ public class videotutorialsMathOperations {
 		System.out.println("Second entry of v1: " + val1);
 		
 		
-		//create a 2x3 matrix
+		//create a 2x3 matrix + print M
 		SimpleMatrix M = new SimpleMatrix(2,3);
+		System.out.println("M = " + M);
 		
 		//set all entries of M to 7 + print M
 		M.fill(7);
