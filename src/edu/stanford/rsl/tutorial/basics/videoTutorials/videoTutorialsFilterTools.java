@@ -22,7 +22,8 @@ import edu.stanford.rsl.conrad.filtering.MedianFilteringTool;
 public class videoTutorialsFilterTools {
 	public static void main(String[] args) {
 	
-		String filename = "C:/vessel.jpg";
+		//String filename = "C:/vessel.jpg";
+		String filename = System.getProperty("user.dir") + "\\src\\edu\\stanford\\rsl\\tutorial\\basics\\videoTutorials\\vessel.jpg";
  		
 		
 		// Open the image using ImageJ
