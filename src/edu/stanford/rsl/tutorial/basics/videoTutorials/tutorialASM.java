@@ -13,43 +13,57 @@ public class tutorialASM {
 	
 	public static void main(String [] args) {
 		
-		ImageJ ij = new ImageJ();
+		new ImageJ();
+		
+		int K = 2; //number of training samples
+        int N = 400; //number of sampling points for shape
+       
+        int dimX = 400; //x-dimension of images
+        int dimY = 400; //y-dimension of images
+       
+        double dX = 1.0; //spacing in x
+        double dY = 1.0; //spacing in y
+       
+        int offX = dimX/2; //shift in x to image center
+        int offY = dimY/2; //shift in y to image center
+       
+        int[] shapePar = {50, 80};
 		
 		//create two grids for the two shapes
-		Grid2D grid1 = new Grid2D(400,400);
-		grid1.setSpacing(1,1);
-		grid1.setOrigin(-200,-200);
-		Grid2D grid2 = new Grid2D(400,400);
-		grid2.setSpacing(1,1);
-		grid2.setOrigin(-200,-200);
+		Grid2D grid1 = new Grid2D(dimX,dimY);
+		grid1.setSpacing(dX,dY);
+		grid1.setOrigin(-offX,-offY);
+		Grid2D grid2 = new Grid2D(dimX,dimY);
+		grid2.setSpacing(dX,dY);
+		grid2.setOrigin(-offX,-offY);
 		
 		//create two different trapezoids on the grids
-		createTrap(grid1, 50);
-		createTrap(grid2, 80);
+		createTrap(grid1, shapePar[0]);
+		createTrap(grid2, shapePar[1]);
 		
 		//show the grids
 		grid1.show("shape1");
 		grid2.show("shape2");
 		
 		//create two shape matrices
-		SimpleMatrix shape1 = new SimpleMatrix(400,2);
-		SimpleMatrix shape2 = new SimpleMatrix(400,2);
+		SimpleMatrix shape1 = new SimpleMatrix(N,2);
+		SimpleMatrix shape2 = new SimpleMatrix(N,2);
 		
 		//create the shapes from the grids
 		createShapeFromGrid(shape1, grid1);
 		createShapeFromGrid(shape2, grid2);
 		
 		//use generalized procrustes analysis to get the mean shape (consensus)
-		GPA gpa = new GPA(2);
+		GPA gpa = new GPA(K);
 		gpa.addElement(0, shape1);
 		gpa.addElement(1, shape2);
 		gpa.runGPA();
 		SimpleMatrix consensus = gpa.getScaledAndShiftedConsensus();
 		
 		//create a grid for the mean shape
-		Grid2D con = new Grid2D(400,400);
-		con.setSpacing(1,1);
-		con.setOrigin(-200,-200);
+		Grid2D con = new Grid2D(dimX,dimY);
+		con.setSpacing(dX,dY);
+		con.setOrigin(-offX,-offY);
 		
 		//get the grid from the mean shape matrix
 		createGridFromShape(con, consensus);
@@ -77,9 +91,9 @@ public class tutorialASM {
 		Mesh mesh1 = asm.getModel(weights);
 		SimpleMatrix shape3 = mesh1.getPoints();
 		
-		Grid2D grid3 = new Grid2D(400,400);
-		grid3.setSpacing(1,1);
-		grid3.setOrigin(-200,-200);
+		Grid2D grid3 = new Grid2D(dimX,dimY);
+		grid3.setSpacing(dX,dY);
+		grid3.setOrigin(-offX,-offY);
 		
 		createGridFromShape(grid3, shape3);
 		
@@ -92,9 +106,9 @@ public class tutorialASM {
 		mesh1 = asm.getModel(weights);
 		shape3 = mesh1.getPoints();
 		
-		Grid2D grid4 = new Grid2D(400,400);
-		grid4.setSpacing(1,1);
-		grid4.setOrigin(-200,-200);
+		Grid2D grid4 = new Grid2D(dimX,dimY);
+		grid4.setSpacing(dX,dY);
+		grid4.setOrigin(-offX,-offY);
 		
 		createGridFromShape(grid4, shape3);
 		
@@ -107,9 +121,9 @@ public class tutorialASM {
 		mesh1 = asm.getModel(weights);
 		shape3 = mesh1.getPoints();
 
-		Grid2D grid5 = new Grid2D(400,400);
-		grid5.setSpacing(1,1);
-		grid5.setOrigin(-200,-200);
+		Grid2D grid5 = new Grid2D(dimX,dimY);
+		grid5.setSpacing(dX,dY);
+		grid5.setOrigin(-offX,-offY);
 		createGridFromShape(grid5, shape3);
 		
 		//show the shape with the weights 1 and 0
