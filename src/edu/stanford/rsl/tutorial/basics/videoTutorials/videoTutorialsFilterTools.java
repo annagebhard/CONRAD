@@ -22,7 +22,7 @@ import edu.stanford.rsl.conrad.filtering.MedianFilteringTool;
 public class videoTutorialsFilterTools {
 	public static void main(String[] args) {
 	
-		String filename = "C:/vessel.jpg";
+		String filename = "vessel.jpg";
  		
 		
 		// Open the image using ImageJ
@@ -48,9 +48,8 @@ public class videoTutorialsFilterTools {
 		meanFilter.applyToolToImage(filteredMean);
 		
 		// Display and compare the filtered image with the original one
-		gridImage.show("Original");
-		filteredMean.show("Mean filtered");
-		
+		//gridImage.show("Original");
+		//filteredMean.show("Mean filtered");
 		
 		
 		// Median filtering
@@ -64,8 +63,9 @@ public class videoTutorialsFilterTools {
 		filteredMedian = medianFilter.applyToolToImage(gridImage);
 		
 		// Compare the result with the original image 
-		gridImage.show("Original");
-		filteredMedian.show("Median filtered");
+		//gridImage.show("Original");
+		//filteredMean.show("Mean filtered");
+		//filteredMedian.show("Median filtered");
 		
 		
 		
@@ -73,33 +73,43 @@ public class videoTutorialsFilterTools {
 		// Using ImageJ to perform Gaussian filtering 
 		IJ.run(imp, "Gaussian Blur...", "sigma=1.5");
 		//gridImage.show("Original");
-		//imp.show("");
+		//imp.show();
 		
 		
 		
 		// We can also create our own kernel function and then perform convolution
-		// Kernel width and height
-		int kw = 3; 
+		// Set kernel width and height
+		int kw = 3;
 		int kh = 3;
 		
 		// Float array for storing the kernel data
 		float[] kernel = new float[kw*kh];
 		
 		// Define the kernel
-		for(int i = 0; i < kernel.length; i++)
-		{				
-			kernel[i] = 1.f / (kw*kh);
+		for (int i = 0; i < kernel.length; ++i) {
+			kernel[i] = 1.f/(kw*kh);
 		}
-
-		// Compute the convolution of the image with the previously defined kernel
-		// Perform the convolution
-		FloatProcessor ip = ImageUtil.wrapGrid2D(new Grid2D(gridImage));
-		Convolver conv = new Convolver();		
-		conv.convolve(ip, kernel, kw, kh);	
 		
+		
+		
+		// Wrap the Grid2D image to FloaProcessor
+		FloatProcessor ip = ImageUtil.wrapGrid2D(new Grid2D(gridImage));
+		
+		// Create a Convolver object
+		Convolver conv = new Convolver();
+		
+		// Perform the convolution between the image and the previously defined kernel
+		conv.convolve(ip, kernel, kw, kh);
+		
+		
+		// Wrap FloatProcessor to Grid2D
 		Grid2D convolvedImage = ImageUtil.wrapFloatProcessor(ip);
+		
+		// Show the images
 		gridImage.show("Original");
 		convolvedImage.show("Convolved Image");
+		
+		
 		
 		
 	
