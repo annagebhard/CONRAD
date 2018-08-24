@@ -42,7 +42,7 @@ public class videoTutorialsOpenCL {
 			// Load sources, create and build program	
 			CLProgram program = context.
 					createProgram(videoTutorialsOpenCL.class.getResourceAsStream("hello.cl")).build();				
-					 			
+
 					
 			// Get a reference to the kernel function with the name 'hello'
 			// and map the buffers to its input parameters.

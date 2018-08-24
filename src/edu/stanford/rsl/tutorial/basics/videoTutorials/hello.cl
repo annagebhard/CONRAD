@@ -9,5 +9,5 @@ kernel void hello(global float* a, int numElements) {
         }
 
         // Add the vector elements
-        a[iGID] = 3.14f;
+        a[iGID] = 3.14f; 
 }
